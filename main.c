@@ -1,6 +1,16 @@
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "musicbox.h"
 
+#define whole_note 1;
+#define half_note 0.5;
+#define quarter_note 0.25;
+#define eight_note 0.125;
+#define sixteenth_note 0.0625;
+#define thirty_second_note 0.03125;
+
+// Define tone frequencies
+#define C3 261.63;
+#define CS3 280;
 
 int main(void){
 	
@@ -79,17 +89,15 @@ int off(unsigned int led) {
 	PORTECLR = led;
 }
 
-int play_sound(void) {
-	double freq = 261.63; //C4
-	double duty_cycle = 0.50;
-	int current_pos = 0;
-	PORTDSET = 0x8;
-	for (int i = 0; i < 1000; i++){
-		current_pos++;;
+int play_note(double frequency, double tone_length) {
+	make_interrupt(tone_length);
+	while(!interrupt_overflow) {
+		make_PWM_signal(frequency);
 	}
-	PORTDCLR = 0x8;
-	/* cpu operates at 80 MHz, if frequency is to be 261.63 Hz
-	   the amount of ticks per wave length must be approx 305775.33 */
+}
+
+int make_interrupt(double durration) {
+	// Create an interrupt that sends overflow when duration is reached
 }
 
 int wave(void) {
