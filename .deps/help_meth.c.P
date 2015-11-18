@@ -1,6 +1,6 @@
-main.c.o: main.c \
+help_meth.c.o: help_meth.c \
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/pic32mx.h \
  musicbox.h
-main.c :
+help_meth.c :
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/pic32mx.h :
  musicbox.h :
