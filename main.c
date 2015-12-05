@@ -1,7 +1,6 @@
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "musicbox.h"
 
-unsigned int btnint_status, btnext_status, sw_status;
 
 // Definition of PR values for different tones.
 #define C3 0x9550
@@ -45,44 +44,49 @@ unsigned int btnint_status, btnext_status, sw_status;
 
 #define C6 0x12AA
 
+unsigned int btnint_status, btnext_status, sw_status;
 int counter = 0;
 int button1tone = C5;
 int button2tone = D5;
 int button3tone = E5;
 int button4tone = F5;
+int button5tone = G5;
+int button6tone = A5;
+int button7tone = B5;
+int button8tone = C6;
 
 
 void change_tone(int* button){
 	if(sw_status == 1) {
-		*button = C3;
-	} else if(sw_status == 2) {
-		*button = D3;
-	} else if(sw_status == 3) {
-		*button = E3;
-	} else if(sw_status == 4) {
-		*button = F3;
-	} else if(sw_status == 5) {
-		*button = G3;
-	} else if(sw_status == 6) {
-		*button = A3;
-	} else if(sw_status == 7) {
-		*button = B3;
-	} else if(sw_status == 8) {
-		*button = C4;
-	} else if(sw_status == 9) {
-		*button = D4;
-	} else if(sw_status == 10) {
-		*button = E4;
-	} else if(sw_status == 11) {
-		*button = F4;
-	} else if(sw_status == 12) {
-		*button = G4;
-	} else if(sw_status == 13) {
-		*button = A4;
-	} else if(sw_status == 14) {
-		*button = B4;
-	} else if(sw_status == 15) {
 		*button = C5;
+	} else if(sw_status == 2) {
+		*button = D5;
+	} else if(sw_status == 3) {
+		*button = E5;
+	} else if(sw_status == 4) {
+		*button = F5;
+	} else if(sw_status == 5) {
+		*button = G5;
+	} else if(sw_status == 6) {
+		*button = A5;
+	} else if(sw_status == 7) {
+		*button = B5;
+	} else if(sw_status == 8) {
+		*button = C5;
+	} else if(sw_status == 9) {
+		*button = D5;
+	} else if(sw_status == 10) {
+		*button = E5;
+	} else if(sw_status == 11) {
+		*button = F5;
+	} else if(sw_status == 12) {
+		*button = G5;
+	} else if(sw_status == 13) {
+		*button = A5;
+	} else if(sw_status == 14) {
+		*button = B5;
+	} else if(sw_status == 15) {
+		*button = C6;
 	} 
 }
 
@@ -92,7 +96,7 @@ int main(void){
     setup();
     while(1){
         update_status();
-        if (btn_status & 1) {
+        if (btnint_status & 1) {
             T2CONSET |= 0x8000;
 			if (sw_status != 0) {
 				change_tone(&button1tone);
@@ -121,23 +125,35 @@ int main(void){
             
         } else if (btnext_status & 1) {
             T2CONSET |= 0x8000;
-            play_sounds(G5);
+            if (sw_status != 0) {
+                change_tone(&button5tone);
+            }
+            play_sounds(button5tone);
             
         } else if (btnext_status & 2) {
             T2CONSET |= 0x8000;
-            play_sounds(A5);
+            if (sw_status != 0) {
+                change_tone(&button6tone);
+            }
+            play_sounds(button6tone);
             
         } else if (btnext_status & 4) {
             T2CONSET |= 0x8000;
-            play_sounds(AS5);
+            if (sw_status != 0) {
+                change_tone(&button7tone);
+            }
+            play_sounds(button7tone);
             
         } else if (btnext_status & 8) {
             T2CONSET |= 0x8000;
-            play_sounds(B5);
+            if (sw_status != 0) {
+                change_tone(&button8tone);
+            }
+            play_sounds(button8tone);
             
         } else {
             IFSCLR(0) = 0x0100;
-            PORTDCLR = 0x1;
+            PORTDCLR = 0xfff;
             T2CON &= ~0x8000;
         }
     }
