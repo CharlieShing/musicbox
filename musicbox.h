@@ -15,3 +15,6 @@ int update_status(void);
 int on(unsigned int led);
 int off(unsigned int led);
 int play_sound(void);
+
+// Functions from tone_changer
+void change_tone(int* Button);
