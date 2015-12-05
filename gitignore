@@ -1,4 +1,4 @@
-# Created by https://www.gitignore.io/api/ac,osx,windows,linux
+open# Created by https://www.gitignore.io/api/ac,osx,windows,linux
 
 #!! ERROR: ac is undefined. Use list command to see defined gitignore types !!#
 
@@ -59,3 +59,9 @@ $RECYCLE.BIN/
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
 
+### PIC32 ###
+*.hex
+*.elf
+
+### C ###
+*.o

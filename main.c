@@ -4,46 +4,47 @@
 unsigned int btn_status, sw_status;
 
 // Definition of PR values for different tones.
-#define C3 = 0x9550;
-#define CS3 = 0x8CEE;
-#define D3 = 0x8505;
-#define DS3 = 0x7D8E;
-#define E3 = 0x7682;
-#define F3 = 0x6FDC;
-#define FS3 = 0x6993;
-#define G3 = 0x63A6;
-#define GS3 = 0x5E0F;
-#define A3 = 0x58C8;
-#define AS3 = 0x53CC;
-#define B3 = 0x4F18;
+#define C3 0x9550
+#define CS3 0x8CEE
+#define D3 0x8505
+#define DS3 0x7D8E
+#define E3 0x7682
+#define F3 0x6FDC
+#define FS3 0x6993
+#define G3 0x63A6
+#define GS3 0x5E0F
+#define A3 0x58C8
+#define AS3 0x53CC
+#define B3 0x4F18
 
-#define C4 = 0x4AA7;
-#define CS4 = 0x4677;
-#define D4 = 0x4283;
-#define DS4 = 0x3EC7;
-#define E4 = 0x3B41;
-#define F4 = 0x37EE;
-#define FS4 = 0x34C9;
-#define G4 = 0x31D3;
-#define GS4 = 0x2F08;
-#define A4 = 0x2C64;
-#define AS4 = 0x29E6;
-#define B4 = 0x278C;
+#define C4 0x4AA7
+#define CS4 0x4677
+#define D4 0x4283
+#define DS4 0x3EC7
+#define E4 0x3B41
+#define F4 0x37EE
+#define FS4 0x34C9
+#define G4 0x31D3
+#define GS4 0x2F08
+#define A4 0x2C64
+#define AS4 0x29E6
+#define B4 0x278C
 
-#define C5 = 0x2554;
-#define CS5 = 0x233C;
-#define D5 = 0x2141;
-#define DS5 = 0x1F64;
-#define E5 = 0x1DA1;
-#define F5 = 0x1BF7;
-#define FS5 = 0x1A65;
-#define G5 = 0x18E9;
-#define GS5 = 0x1784;
-#define A5 = 0x1632;
-#define AS5 = 0x14F3;
-#define B5 = 0x13C6;
+#define C5 0x2554
+#define CS5 0x233C
+#define D5 0x2141
+#define DS5 0x1F64
+#define E5 0x1DA1
+#define F5 0x1BF7
+#define FS5 0x1A65
+#define G5 0x18E9
+#define GS5 0x1784
+#define A5 0x1632
+#define AS5 0x14F3
+#define B5 0x13C6
 
-#define C6 = 0x12AA;
+#define C6 0x12AA
+
 int counter = 0;
 
 int main(void){
@@ -53,17 +54,18 @@ int main(void){
         update_status();
         if (btn_status & 1) {
             T2CONSET |= 0x8000;
-//            PR2 = 0x9550;
-            play_sounds(0x9550);
+            play_sounds(C5);
         } else if (btn_status & 2) {
             T2CONSET |= 0x8000;
-//            PR2 = 0x4AA7;
-            play_sounds(0x4AA7);
+            play_sounds(D5);
             
         } else if (btn_status & 4) {
             T2CONSET |= 0x8000;
-//            PR2 = 0x2554;
-            play_sounds(0x2554);
+            play_sounds(E5);
+            
+        } else if (btn_status & 8) {
+            T2CONSET |= 0x8000;
+            play_sounds(F5);
             
         } else {
             IFSCLR(0) = 0x0100;
