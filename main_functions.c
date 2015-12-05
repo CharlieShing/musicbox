@@ -25,7 +25,7 @@ int setup(void) {
     
     // Initialize TMR2 as timer for creating audio through speaker
     T2CON &= ~0xffff;
-    T2CONSET = 0x0030;
+    T2CONSET = 0x0040;
     
 }
 

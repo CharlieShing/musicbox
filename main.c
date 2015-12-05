@@ -3,6 +3,9 @@
 
 unsigned int btn_status, sw_status;
 
+// Definition of PR values for different tones.
+#define C0 =
+
 int counter = 0;
 
 int main(void){
@@ -12,11 +15,16 @@ int main(void){
         update_status();
         if (btn_status & 1) {
             T2CONSET |= 0x8000;
-            PR2 = 0x942f;
+            PR2 = 0x9550;
             play_sound_timer();
         } else if (btn_status & 2) {
             T2CONSET |= 0x8000;
-            PR2 = 0x4A0F;
+            PR2 = 0x4AA7;
+            play_sound_timer();
+            
+        } else if (btn_status & 4) {
+            T2CONSET |= 0x8000;
+            PR2 = 0x2554;
             play_sound_timer();
             
         } else {
