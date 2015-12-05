@@ -15,17 +15,17 @@ int main(void){
         update_status();
         if (btn_status & 1) {
             T2CONSET |= 0x8000;
-            PR2 = 0x9550;
-            play_sound_timer();
+//            PR2 = 0x9550;
+            play_sounds(0x9550);
         } else if (btn_status & 2) {
             T2CONSET |= 0x8000;
-            PR2 = 0x4AA7;
-            play_sound_timer();
+//            PR2 = 0x4AA7;
+            play_sounds(0x4AA7);
             
         } else if (btn_status & 4) {
             T2CONSET |= 0x8000;
-            PR2 = 0x2554;
-            play_sound_timer();
+//            PR2 = 0x2554;
+            play_sounds(0x2554);
             
         } else {
             IFSCLR(0) = 0x0100;
@@ -41,8 +41,9 @@ int update_status(void) {
     btn_status = getbtns();
 }
 
-int play_sound_timer() {
-    
+int play_sounds(int tone) {
+
+	PR2 = tone;    
     int counter = counter%2;
     unsigned int overflow = IFS(0);
     overflow &= 0x000100;
