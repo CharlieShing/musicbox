@@ -6,7 +6,8 @@ Header file for all files included in musicbox project
 int main(void);
 
 // Functions from input_status
-int getbtns(void);
+int getintbtns(void);
+int getextbtns(void);
 int getsw(void);
 
 // Functions from main_functions

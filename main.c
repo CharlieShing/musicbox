@@ -1,7 +1,7 @@
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "musicbox.h"
 
-unsigned int btn_status, sw_status;
+unsigned int btnint_status, btnext_status, sw_status;
 
 // Definition of PR values for different tones.
 #define C3 0x9550
@@ -52,20 +52,36 @@ int main(void){
     setup();
     while(1){
         update_status();
-        if (btn_status & 1) {
+        if (btnint_status & 1) {
             T2CONSET |= 0x8000;
             play_sounds(C5);
-        } else if (btn_status & 2) {
+        } else if (btnint_status & 2) {
             T2CONSET |= 0x8000;
             play_sounds(D5);
             
-        } else if (btn_status & 4) {
+        } else if (btnint_status & 4) {
             T2CONSET |= 0x8000;
             play_sounds(E5);
             
-        } else if (btn_status & 8) {
+        } else if (btnint_status & 8) {
             T2CONSET |= 0x8000;
             play_sounds(F5);
+            
+        } else if (btnext_status & 1) {
+            T2CONSET |= 0x8000;
+            play_sounds(G5);
+            
+        } else if (btnext_status & 2) {
+            T2CONSET |= 0x8000;
+            play_sounds(A5);
+            
+        } else if (btnext_status & 4) {
+            T2CONSET |= 0x8000;
+            play_sounds(AS5);
+            
+        } else if (btnext_status & 8) {
+            T2CONSET |= 0x8000;
+            play_sounds(B5);
             
         } else {
             IFSCLR(0) = 0x0100;
@@ -78,7 +94,10 @@ int main(void){
 
 //Update status
 int update_status(void) {
-    btn_status = getbtns();
+    btnint_status = getintbtns();
+    btnext_status = getextbtns();
+    sw_status = getsw();
+    
 }
 
 int play_sounds(int tone) {

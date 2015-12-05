@@ -10,7 +10,7 @@
 #include "musicbox.h"
 
 // Help functions
-int getbtns(void) {
+int getintbtns(void) {
     
     unsigned int btn1 = PORTF;
     btn1 >>= 1;
@@ -19,7 +19,15 @@ int getbtns(void) {
     unsigned int btnrest = PORTD;
     btnrest >>= 4;
     btnrest &= 0xe;
-    return btnrest + btn1;
+    
+    unsigned int input = btnrest | btn1;
+    return input;
+}
+
+int getextbtns(void) {
+    unsigned int btns = PORTD;
+    btns &= 0xf;
+    return btns;
 }
 
 int getsw(void) {

@@ -12,28 +12,25 @@
 int setup(void) {
     
     // Initialize LED1 to output
-    TRISE &= ~0x2;
     PORTECLR = 0x2;
+    TRISE &= ~0x2;
     
-    // Initialize BTNs to input
+    // Initialize BTNs to input external BTNs 1-4, internal 5-8
+    PORTFCLR = 0x2;
+    PORTDCLR = 0xef;
     TRISF |= 0x2;
-    TRISD |= 0xe0;
+    TRISD |= 0xef;
+    
+    // Initialize switches
+    PORTDCLR = 0xf00;
+    TRISDSET = 0xf00;
     
     // Initialize PIN3 as output for speaker PWM signal
+    PORTDCLR = 0x1;
     TRISD &= ~0x1;
-    PORTDCLR = 0xffff;
     
     // Initialize TMR2 as timer for creating audio through speaker
     T2CON &= ~0xffff;
     T2CONSET = 0x0040;
     
-}
-
-
-int play_sound_pwm(int duty) {
-    OC4RS = duty;
-    T2CONSET = 0x8000;
-    OC4CON |= 0x8006;
-    int i;
-    for (i = 0; i < 1000000; i++);
 }
