@@ -1,23 +1,30 @@
-#include <pic32mx.h>
+//
+//  input_status.c
+//  
+//
+//  Created by Christoffer Alenskog Berg on 05/12/15.
+//
+//
+
+#include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "musicbox.h"
 
+// Help functions
 int getbtns(void) {
-	
-	unsigned int btn1 = PORTF;
-	btn1 &= 0x2;
-	btn1 >>= 1;
-	
-	unsigned int btns4to2 = PORTD;
-	btns4to2 >>= 4;
-	btns4to2 &= 0xe;
-	
-	unsigned int input = btns4to2 | btn1;
-	
-	return input;
+    
+    unsigned int btn1 = PORTF;
+    btn1 >>= 1;
+    btn1 &= 0x1;
+    
+    unsigned int btnrest = PORTD;
+    btnrest >>= 4;
+    btnrest &= 0xe;
+    return btnrest + btn1;
 }
 
 int getsw(void) {
-	unsigned int input = PORTD;
-	input >>= 8;
-	input = input & 0xf;
+    
+    unsigned int input = PORTD;
+    input >>= 8;
+    input = input & 0xf;
 }
