@@ -46,26 +46,78 @@ unsigned int btnint_status, btnext_status, sw_status;
 #define C6 0x12AA
 
 int counter = 0;
+int button1tone = C5;
+int button2tone = D5;
+int button3tone = E5;
+int button4tone = F5;
+
+
+void change_tone(int* button){
+	if(sw_status == 1) {
+		*button = C3;
+	} else if(sw_status == 2) {
+		*button = D3;
+	} else if(sw_status == 3) {
+		*button = E3;
+	} else if(sw_status == 4) {
+		*button = F3;
+	} else if(sw_status == 5) {
+		*button = G3;
+	} else if(sw_status == 6) {
+		*button = A3;
+	} else if(sw_status == 7) {
+		*button = B3;
+	} else if(sw_status == 8) {
+		*button = C4;
+	} else if(sw_status == 9) {
+		*button = D4;
+	} else if(sw_status == 10) {
+		*button = E4;
+	} else if(sw_status == 11) {
+		*button = F4;
+	} else if(sw_status == 12) {
+		*button = G4;
+	} else if(sw_status == 13) {
+		*button = A4;
+	} else if(sw_status == 14) {
+		*button = B4;
+	} else if(sw_status == 15) {
+		*button = C5;
+	} 
+}
+
 
 int main(void){
 	
     setup();
     while(1){
         update_status();
-        if (btnint_status & 1) {
+        if (btn_status & 1) {
             T2CONSET |= 0x8000;
-            play_sounds(C5);
+			if (sw_status != 0) {
+				change_tone(&button1tone);
+			}
+            play_sounds(button1tone);
         } else if (btnint_status & 2) {
             T2CONSET |= 0x8000;
-            play_sounds(D5);
+			if (sw_status != 0) {
+				change_tone(&button2tone);
+			}
+            play_sounds(button2tone);
             
         } else if (btnint_status & 4) {
             T2CONSET |= 0x8000;
-            play_sounds(E5);
+			if (sw_status != 0) {
+				change_tone(&button3tone);
+			}
+            play_sounds(button3tone);
             
         } else if (btnint_status & 8) {
             T2CONSET |= 0x8000;
-            play_sounds(F5);
+			if (sw_status != 0) {
+				change_tone(&button4tone);
+			}
+            play_sounds(button4tone);
             
         } else if (btnext_status & 1) {
             T2CONSET |= 0x8000;
@@ -117,6 +169,8 @@ int play_sounds(int tone) {
         counter++;
         IFSCLR(0) = 0x0100;
     }
+
+
 }
 
 
