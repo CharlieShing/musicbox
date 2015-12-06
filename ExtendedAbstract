@@ -1,0 +1,57 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\title{Making the PIC32 microprocessor into a musicbox}
+
+\author{Christoffer Alenskog \\ Dante Johansson}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Objective and requirements}
+
+The aim of this project is to develop the PIC32 microprocessor into a musicbox. We will connect an external speaker to the board. The user should be able to create sounds by pressing the buttons and switches and then arrange these sounds in any order. The ressulting arrangement should then be playable as a whole song. It should also be possible to upload a file into the memory of the microprocessor which can then be decoded into a song. The requirements for the musicbox are as follows:
+\begin{itemize}
+	\item The user should be able to press a button and hear a sound.
+	\item By pressing buttons the sounds can be arranged in a specific order. With specified length and frequency.
+	\item The unit should be able to decode a file containing sound information and convert it to sound. It will be possible to import files and store the sounds in the datamemory to use them as preset songs.
+\end{itemize}
+Optional features if time allows:
+\begin{itemize}
+	\item Using the display to navigate and show information about sounds etc.
+	\item Changing the characteristics of the sounds to make them sound like different instruments like for example drums and synth.
+	\item Adding a microphone to record sound.
+	\item Create random song from designed algorithm.
+\end{itemize}
+
+\section{Solution}
+
+We have found a speaker that we can plug into the ChipKit board. We have written C code to create and play sounds through the speaker on command from the buttons. We have added an additional board in order to have a few more buttons that can be used.
+\\The code constantly polls to see if a button has been pressed. If it has, it will send a signal to the speaker, causing it to play a sound for as long as the button is pressed. The switches can be used to change the tone a specific button will send to the speaker. The change is saved so the button remembers the new tone even after the switches have returned to their original position.
+ The code is able to decode arrays and translate them into sounds. 
+
+Unfortunatly, we were unable to complete any optional features.
+
+\section{Verification}
+
+The verification process have been done with continuous testing to check that all buttons and switches do what they are supposed to do, as well as checking that all tones sound right.
+When representing a song in a file the predicted sound should correspond to the actual sound of the representation in the file.
+
+\section{Contributions}
+Most of the code have been written by Christoffer. Dante has written the code for playing a sound when a button is pressed, changing the tone if any switch is active and the example songs.
+
+\section{Reflections}
+Making sounds was easier than expected. Decoding arrays to create sounds were as hard as expected.
+
+
+\end{document}
+
+    Status API Training Shop Blog About Pricing 
+
+
