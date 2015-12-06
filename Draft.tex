@@ -1,0 +1,45 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\title{Making the PIC32 microprocessor into a musicbox}
+
+\author{Christoffer Alenskog \\ Dante Johansson}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Objective and requirements}
+
+The aim of this project is to develop the PIC32 microprocessor into a musicbox. We will connect an external speaker to the board. The user should be able to create sounds by pressing the buttons and switches and then arrange these sounds in any order. The ressulting arrangement should then be playable as a whole song. It should also be possible to upload a file into the memory of the microprocessor which can then be decoded into a song. The requrirements for the musicbox are as follows:
+\begin{itemize}
+	\item The user should be able to press a button and hear a sound.
+	\item By pressing buttons the sounds can be arranged in a specific order. With specified length and frequency.
+	\item The unit should be able to decode a file containing sound information and convert it to sound. It will be possible to import files and store the sounds in the datamemory to use them as preset songs.
+\end{itemize}
+Optional features if time allows:
+\begin{itemize}
+	\item Using the display to navigate and show information about sounds etc.
+	\item Changing the characteristics of the sounds to make them sound like different instruments like for example drums and synth.
+	\item Adding a microphone to record sound.
+	\item Create random song from designed algorithm.
+\end{itemize}
+
+\section{Solution}
+
+We are planning to buy or find a speaker that we can plug into the ChipKit board. We will then write C code to create and play sounds through the speaker on command from the buttons. The code should be able to read and write to files to load and save sounds. For the optional objectives we will use the buit-in display and with the help of interrupts it will update the showed information when pressing buttons and changing switches. We will also look into how different sounds are represented to be able to manipulate them in a way to make them sound different and how recorded sound can be saved and represented in binary code. If we also have time to create a random song we would want to design an algorithm which can create songs based on music theory so that the random songs don't sound bad.
+
+\section{Verification}
+
+The verification process would be done with continuous testing and solving of bugs. When representing a song in a file the predicted sound should correspond to the actual sound of the representation in the file.
+
+
+
+
+
+\end{document}

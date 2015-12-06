@@ -92,16 +92,22 @@ void change_tone(int* button){
 
 
 int main(void){
+    sw_status = 0x0;
+    btnext_status = 0x0;
 	
     setup();
     while(1){
         update_status();
+        
+            //Button 1
         if (btnint_status & 1) {
             T2CONSET |= 0x8000;
 			if (sw_status != 0) {
 				change_tone(&button1tone);
 			}
             play_sounds(button1tone);
+            
+            //Button 2
         } else if (btnint_status & 2) {
             T2CONSET |= 0x8000;
 			if (sw_status != 0) {
@@ -109,6 +115,7 @@ int main(void){
 			}
             play_sounds(button2tone);
             
+            //Button 3
         } else if (btnint_status & 4) {
             T2CONSET |= 0x8000;
 			if (sw_status != 0) {
@@ -116,6 +123,7 @@ int main(void){
 			}
             play_sounds(button3tone);
             
+            //Button 4
         } else if (btnint_status & 8) {
             T2CONSET |= 0x8000;
 			if (sw_status != 0) {
@@ -123,6 +131,7 @@ int main(void){
 			}
             play_sounds(button4tone);
             
+            //Button 5
         } else if (btnext_status & 1) {
             T2CONSET |= 0x8000;
             if (sw_status != 0) {
@@ -130,6 +139,7 @@ int main(void){
             }
             play_sounds(button5tone);
             
+            //Button 6
         } else if (btnext_status & 2) {
             T2CONSET |= 0x8000;
             if (sw_status != 0) {
@@ -137,6 +147,7 @@ int main(void){
             }
             play_sounds(button6tone);
             
+            //Button 7
         } else if (btnext_status & 4) {
             T2CONSET |= 0x8000;
             if (sw_status != 0) {
@@ -144,6 +155,7 @@ int main(void){
             }
             play_sounds(button7tone);
             
+            //Button 8
         } else if (btnext_status & 8) {
             T2CONSET |= 0x8000;
             if (sw_status != 0) {
