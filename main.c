@@ -17,7 +17,7 @@
 #define AS3 0x53CC
 #define B3 0x4F18
 
-#define C4 0x4AA7
+#define C4 0x264
 #define CS4 0x4677
 #define D4 0x4283
 #define DS4 0x3EC7
@@ -43,19 +43,27 @@
 #define AS5 0x14F3
 #define B5 0x13C6
 
-#define C6 0x12AA
+#define C6 0x99
+
+
+#define fourth 0x4E200
 
 volatile unsigned int* _T4CON = (unsigned int*) 0xbf800c00;
 unsigned int btnint_status, btnext_status, sw_status;
-int counter = 0;
+int signal_counter = 0;
+int overflow_tone_count = 0;
+int overflow_duration_count = 0;
 int button1tone = C5;
 int button2tone = D5;
-int button3tone = E5;
-int button4tone = F5;
+int button3tone = C6;
+int button4tone = C4;
 int button5tone = G5;
 int button6tone = A5;
 int button7tone = B5;
 
+int example_twinkle[] = {G4, 153, G4, 153, D5, 153, D5, 153, E5, 153, E5, 153, D5, 305, C5, 153, C5, 153, B5, 153, B5, 153, A5, 153, A5, 153, G4, 305, C5, 153, C5, 153, B5, 153, B5, 153, A5, 153, A5, 153, G4, 305, G4, 153, G4, 153, D5, 153, D5, 153, E5, 153, E5, 153, D5, 305, C5, 153, C5, 153, B5, 153, B5, 153, A5, 153, A5, 153, G4, 305};
+
+int example_zelda[] = {D4, 153, D5, 153, B5, 305, A5, 153, B5, 153, A5, 305, D4, 153, D5, 153, B5, 305, A5, 153, B5, 153, A5, 305, E4, 153, A5, 153, G4, 305, A5, 153, G4, 153, A5, 305, G4, 153};
 
 void change_tone(int* button){
     if(sw_status == 1) {
@@ -100,18 +108,11 @@ int main(void){
         //Button 1
         if (btnint_status & 1) {
             T2CONSET = 0x8000;
-            if (sw_status != 0) {
-                change_tone(&button1tone);
-            }
-            play_tone(button1tone);
+            
+            play_fourth();
             
             //Button 2
         } else if (btnint_status & 2) {
-            T2CONSET = 0x8000;
-            if (sw_status != 0) {
-                change_tone(&button2tone);
-            }
-            play_tone(button2tone);
             
             //Button 3
         } else if (btnint_status & 4) {
@@ -175,43 +176,40 @@ int update_status(void) {
     
 }
 
-int play_tone(int tone) {
+int play_tone(int tone_overflow_count) {
     
-    if (tone) {
-        PR2 = tone;
-        int counter = counter%2;
+    if (tone_overflow_count) {
+        int signal_counter = signal_counter%2;
         unsigned int overflow = IFS(0);
-        overflow &= 0x000100;
-        overflow >>= 8;
+        overflow &= 0x100;
+        if (overflow) {
+            overflow_tone_count++;
+            IFSCLR(0) = 0x100;
+        }
         
-        if (overflow == 1) {
+        if (overflow_tone_count >= tone_overflow_count) {
             // Alternate between 1 and 0 each time overflow flag is reached
-            if (counter%2 == 0) {
+            if (signal_counter%2 == 0) {
                 PORTDSET = 0x1;
             } else
                 PORTDCLR = 0x1;
-            counter++;
-            IFSCLR(0) = 0x100;
+            signal_counter++;
+            overflow_tone_count = 0;
         }
     }
 }
 
-// Play a melody from given array.
-int play_melody(int *melody_array) {
-    *_T4CON |= 0x8000;
-    int i, tone_length, overflow_count;
-    int array_size = sizeof(melody_array)/sizeof(melody_array[0]);
-    for (i = 0; i < array_size-1; i+2) {
-        tone_length = melody_array[i+1];
-        //While overflow isn't reached
-        while (overflow_count < tone_length)
-            if(IFS(0) & 0x10000) {
-                overflow_count++;
-                IFSCLR(0) = 0x10000;
-            }
-        play_tone(melody_array[i]);
+int play_fourth() {
+    unsigned int overflow;
+    while (overflow_duration_count <= fourth) {
+        overflow = IFS(0);
+        if (overflow) {
+            overflow_duration_count++;
+            IFSCLR(0) = 0x100;
+        }
+        play_tone(C6);
     }
-    *_T4CON &= ~0x8000;
+    overflow_duration_count = 0;
 }
 
 

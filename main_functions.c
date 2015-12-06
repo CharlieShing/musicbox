@@ -37,13 +37,7 @@ int setup(void) {
     
     // Initialize TMR2 as timer for creating audio through speaker
     T2CON &= ~0xffff;
-    T2CONSET = 0x0040;
-    
-    // Initialize TMR4 as timer for playing tones in certain durations
-    *_T4CON2 &= ~0xffff;
-    // Using prescaler of 1:4 for high precition
-    *_T4CON2 |= 0x0020;
-    // Constant prescaler
-    *_PR4 = 0xf;
+    T2CONSET = 0x0000;
+    PR2 = 0x1F4;
     
 }
