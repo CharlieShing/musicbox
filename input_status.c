@@ -25,7 +25,7 @@ int getintbtns(void) {
 
 int getextbtns(void) {
     unsigned int _portd = PORTD;
-    unsigned int btn1, btn2, btn3, btn4;
+    unsigned int btn1, btn2, btn3;
     
     btn1 = _portd;
     btn1 >>= 1;
@@ -36,11 +36,8 @@ int getextbtns(void) {
     btn3 = _portd;
     btn3 >>= 1;
     btn3 &= 0x4;
-    btn4 = _portd;
-    btn4 >>= 1;
-    btn4 &= 0x8;
 
-    return btn1 + btn2 + btn3/* + btn4*/;
+    return btn3 + btn2 + btn1;
 }
 
 int getsw(void) {
