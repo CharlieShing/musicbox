@@ -8,11 +8,8 @@
 
 #ifndef main_functions_h
 #define main_functions_h
-
 #include <stdio.h>
 extern int example_twinkle[];
-
 extern int example_zelda[];
-extern int play_tone(int tone_overflow_count);
-extern void change_tone(int* button);
+extern int setup(void);
 #endif
