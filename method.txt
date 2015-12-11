@@ -1,9 +1,0 @@
-CPU: 80 MHz
-C4 frequency: 261.63 Hz
-CPU speed compared to C4 frequency: (80 * 10^6)/ 261.63 = 305775.33
-
-We want to create a signal consisting of 1's and 0's in given intervalls and varying length. The average of the signals should ressult in a sinewave which in turn will generate a tone to the speaker.
-
-So the question is how to define the intervalls and lengths in the program. Maybe use a function to calculate the sine-value and then depending on that compute if the signal should be 1 or 0.
-
-Have interrupts send sinals to the speaker. Depending on the value of a counter it will send 1 or 0.
