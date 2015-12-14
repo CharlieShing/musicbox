@@ -8,78 +8,70 @@
 
 #ifndef main_functions_h
 #define main_functions_h
-//Global variables
-/*
-extern int example_twinkle[];
-extern int example_zelda[];
-*/
-// tonestone pause_whole = {0, 0.5*SPEED};
-/*
-extern Tone pause_half;
-extern Tone pause_fourth;
-extern Tone pause_eighth;
-extern Tone pause_sixteenth;
-*/
-extern struct Tone c6_whole;
-/*extern Tone c6_half;
-extern Tone c6_fourth;
-extern Tone c6_eighth;
-extern Tone c6_sixteenth;
 
-extern Tone f5_whole;
-extern Tone f5_half;
-extern Tone f5_fourth;
-extern Tone f5_eighth;
-extern Tone f5_sixteenth;
-
-extern struct tone e5_whole;
-extern struct tone e5_half;
-extern struct tone e5_fourth;
-extern struct tone e5_eighth;
-extern struct tone e5_sixteenth;
-
-extern struct tone d5_whole;
-extern struct tone d5_half;
-extern struct tone d5_fourth;
-extern struct tone d5_eighth;
-extern struct tone d5_sixteenth;
-
-extern struct tone c5_whole;
-extern struct tone c5_half;
-extern struct tone c5_fourth;
-extern struct tone c5_eighth;
-extern struct tone c5_sixteenth;
-
-extern struct tone c4_whole;
-extern struct tone c4_half;
-extern struct tone c4_fourth;
-extern struct tone c4_eighth;
-extern struct tone c4_sixteenth;
-
-extern struct tone c3_whole;
-extern struct tone c3_half;
-extern struct tone c3_fourth;
-extern struct tone c3_eighth;
-extern struct tone c3_sixteenth;
-
-extern struct tone tone_btn1;
-extern struct tone tone_btn2;
-extern struct tone tone_btn3;
-extern struct tone tone_btn4;
-extern struct tone tone_btn5;
-extern struct tone tone_btn6;
-extern struct tone tone_btn7;
-*/
-//Global functions
-
+extern int C2;
+extern int CS2;
+extern int D2;
+extern int DS2;
+extern int E2;
+extern int F2;
+extern int FS2;
+extern int G2;
+extern int GS2;
+extern int A2;
+extern int AS2;
+extern int B2;
 extern int C3;
+extern int CS3;
+extern int D3;
+extern int DS3;
+extern int E3;
+extern int F3;
+extern int FS3;
+extern int G3;
+extern int GS3;
+extern int A3;
+extern int AS3;
+extern int B3;
 extern int C4;
+extern int CS4;
+extern int D4;
+extern int DS4;
+extern int E4;
+extern int F4;
+extern int FS4;
+extern int G4;
+extern int GS4;
+extern int A4;
+extern int AS4;
+extern int B4;
 extern int C5;
+extern int CS5;
 extern int D5;
+extern int DS5;
 extern int E5;
 extern int F5;
+extern int FS5;
+extern int G5;
+extern int GS5;
+extern int A5;
+extern int AS5;
+extern int B5;
 extern int C6;
+extern int CS6;
+extern int D6;
+extern int DS6;
+extern int E6;
+extern int F6;
+extern int FS6;
+extern int G6;
+extern int GS6;
+extern int A6;
+extern int AS6;
+extern int B6;
+extern int C7;
+
+extern int tone_frq[61];
 
 extern int setup(void);
-int init_tones(void);
 #endif

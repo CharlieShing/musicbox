@@ -10,6 +10,6 @@
 #define main_functions_h
 
 //Global functions
-extern int change_tone(struct Tone button);
-extern int play_tone(struct Tone t);
+extern int play_tone(int* index, int length);
+extern int play_song( void );
 #endif

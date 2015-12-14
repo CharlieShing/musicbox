@@ -1,0 +1,4 @@
+status.c.o: status.c /opt/mcb32tools/include/pic32mx.h musicbox.h \
+ status.h
+status.c /opt/mcb32tools/include/pic32mx.h musicbox.h :
+ status.h :

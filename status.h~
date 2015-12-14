@@ -8,12 +8,14 @@
 
 #ifndef input_status_h
 #define input_status_h
-extern unsigned int btn_ext;
-extern unsigned int btn_int;
+extern unsigned int btns;
 extern unsigned int sw;
-
-extern int getintbtns( void );
-extern int getextbtns( void );
-extern int getsw( void );
+extern unsigned int btn1;
+extern unsigned int btn2;
+extern unsigned int btn3;
+extern unsigned int btn4;
+extern unsigned int btn5;
+extern unsigned int btn6;
+extern unsigned int btn7;
 extern int update_status( void );
 #endif /* input_status_h */

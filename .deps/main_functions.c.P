@@ -1,4 +1,4 @@
 main_functions.c.o: main_functions.c /opt/mcb32tools/include/pic32mx.h \
- musicbox.h setup.h main_functions.h
+ musicbox.h setup.h main_functions.h status.h
 main_functions.c /opt/mcb32tools/include/pic32mx.h :
- musicbox.h setup.h main_functions.h :
+ musicbox.h setup.h main_functions.h status.h :
