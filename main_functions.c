@@ -9,61 +9,108 @@
 
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "musicbox.h"
+#include "setup.h"
 #include "main_functions.h"
 
-void change_tone(int* button){
+struct Tone {
+	int freq;
+	int length;
+};
+
+int change_tone(struct Tone button){
+/*
     if(sw_status == 1) {
-        *button = C5;
+        *button = c4_fourth;
     } else if(sw_status == 2) {
-        *button = D5;
+        *button = c4_whole;
     } else if(sw_status == 3) {
-        *button = E5;
+        *button = c3_fourth;
     } else if(sw_status == 4) {
-        *button = F5;
+        *button = c5_sixteenth;
     } else if(sw_status == 5) {
-        *button = G5;
+        *button = d5_sixteenth;
     } else if(sw_status == 6) {
-        *button = A5;
+        *button = e5_sixteenth;
     } else if(sw_status == 7) {
-        *button = B5;
+        *button = f5_sixteenth;
     } else if(sw_status == 8) {
-        *button = C5;
+        *button = c6_sixteenth;
     } else if(sw_status == 9) {
-        *button = D5;
+        *button = c5_fourth;
     } else if(sw_status == 10) {
-        *button = E5;
+        *button = d5_fourth;
     } else if(sw_status == 11) {
-        *button = F5;
+        *button = e5_fourth;
     } else if(sw_status == 12) {
-        *button = G5;
+        *button = f5_fourth;
     } else if(sw_status == 13) {
-        *button = A5;
+        *button = c6_fourth;
     } else if(sw_status == 14) {
-        *button = B5;
+        *button = c3_whole;
     } else if(sw_status == 15) {
-        *button = C6;
+        *button = c6_whole;
     }
+*/
+}
+int play_tone(struct Tone t) {
+	int start_wave, end_wave, reached_mid, mid_wave;
+	int start_tone = TMR2;
+	int duration = t.length * 312500;
+	int end_tone = start_tone + duration;
+	T2CONSET = 0x8000;
+
+	// While tone time is less than start + duration
+	while (TMR2 < end_tone) {
+
+		start_wave = TMR2;
+		reached_mid = 0;
+		end_wave = start_wave + 312500 / t.freq;
+		mid_wave = end_wave / 2;
+
+		// First part of wave
+		if (PORTD & 0x1)
+			PORTDSET = 0x1;
+		else PORTDCLR = 0x1;
+
+		// While wave time is less than start + duration
+		while (TMR2 < end_wave) {
+			if (!reached_mid & TMR2 > mid_wave) {
+				reached_mid = 1;
+				
+				// Second part of wave
+				if (PORTD & 0x1)
+					PORTDSET = 0x1;
+				else PORTDCLR = 0x1;
+			}
+		}
+	}
+	PORTDCLR = 0x1;
+	T2CON |= ~0x8000;
+}
+int play_tone_simple(int freq) {
+	T2CONSET = 0x8000;
+	int start_wave = TMR2;
+	int reached_mid = 0;
+	int end_wave = start_wave + (312500 / freq);
+	int mid_wave = end_wave / 2;
+
+	// First part of wave
+	if (PORTD & 0x1)
+		PORTDSET = 0x1;
+	else PORTDCLR = 0x1;
+
+	// While wave time is less than start + duration
+	while (TMR2 < end_wave) {
+		if (!reached_mid & TMR2 > mid_wave) {
+			reached_mid = 1;
+				
+			// Second part of wave
+			if (PORTD & 0x1)
+					PORTDSET = 0x1;
+			else PORTDCLR = 0x1;
+		}
+	}
+	T2CON |= ~0x8000;
 }
 
-int play_tone(int tone_overflow_count) {
-    
-    if (tone_overflow_count) {
-        int signal_counter = signal_counter%2;
-        unsigned int overflow = IFS(0);
-        overflow &= 0x100;
-        if (overflow) {
-            overflow_tone_count++;
-            IFSCLR(0) = 0x100;
-        }
-        
-        if (overflow_tone_count >= tone_overflow_count) {
-            // Alternate between 1 and 0 each time overflow flag is reached
-            if (signal_counter%2 == 0) {
-                PORTDSET = 0x1;
-            } else
-                PORTDCLR = 0x1;
-            signal_counter++;
-            overflow_tone_count = 0;
-        }
-    }
-}
+

@@ -1,5 +1,7 @@
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "musicbox.h"
+#include "setup.h"
+#include "main_functions.h"
 #include "input_status.h"
 
 unsigned int btn_ext;

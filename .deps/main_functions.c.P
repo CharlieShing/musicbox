@@ -1,6 +1,4 @@
-main_functions.c.o: main_functions.c \
- /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/pic32mx.h \
- musicbox.h
-main_functions.c :
- /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/pic32mx.h :
- musicbox.h :
+main_functions.c.o: main_functions.c /opt/mcb32tools/include/pic32mx.h \
+ musicbox.h setup.h main_functions.h
+main_functions.c /opt/mcb32tools/include/pic32mx.h :
+ musicbox.h setup.h main_functions.h :
