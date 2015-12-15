@@ -17,5 +17,5 @@ extern int btn4;
 extern int btn5;
 extern int btn6;
 extern int btn7;
-extern int update_status( void );
+int update_status( void );
 #endif /* input_status_h */

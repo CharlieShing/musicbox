@@ -10,6 +10,6 @@
 #define main_functions_h
 
 //Global functions
-extern int play_tone(int* index, int length);
-extern int play_song( void );
+int play_tone(int* index, int length);
+int play_song( void );
 #endif

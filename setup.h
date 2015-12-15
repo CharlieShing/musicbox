@@ -72,6 +72,21 @@ extern int B6;
 extern int C7;
 
 extern int tone_frq[61];
+extern int scale_C_Major[36];
+extern int scale_D_Major[36];
+extern int scale_E_Major[36];
+extern int scale_F_Major[36];
+extern int scale_G_Major[36];
+extern int scale_A_Major[36];
+extern int scale_B_Major[36];
+extern int scale_C_Minor[36];
+extern int scale_D_Minor[36];
+extern int scale_E_Minor[36];
+extern int scale_F_Minor[36];
+extern int scale_G_Minor[36];
+extern int scale_A_Minor[36];
+extern int scale_B_Minor[36];
+extern int scale_C_Arabix[36];
 
-extern int setup(void);
+int setup(void);
 #endif

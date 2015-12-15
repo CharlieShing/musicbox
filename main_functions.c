@@ -4,6 +4,9 @@
 #include "main_functions.h"
 #include "status.h"
 
+#define SCALES_AMOUNT 7
+#define TONES_IN_SCALE 36
+
 int verse_length_1;
 int verse_length_2;
 int verse_length_3;
@@ -94,11 +97,11 @@ int chorus_tone_24;
 int led_up  = 0x01;
 int led_down  = 0x80;
 static int
-x=99999,
-y=983476,
-z=348572,
-w=62346,
-v=61126;
+x=739677345,
+y=908315784,
+z=275428064,
+w=279215799,
+v=134787432;
 
 /*Method for generating random number. Found on 
 http://mathoverflow.net/questions/29494/pseudo-random-number-generation-algorithms*/ 
@@ -128,7 +131,7 @@ int play_tone(int freq, int length) {
 	else led_down = 0x80;
 	
 	// Turn on one of the LEDs
-	PORTESET = led_up + led_down;
+	PORTESET = led_up + led_down + (xorshift() & 0xa5);
 	// Counters increment each microsecond.
 	while (duration_counter < duration) {
 		if (IFS(0) & 0x100 ) {
@@ -325,13 +328,13 @@ int play_noize() {
 	get_bridge();
 	get_chorus();
 	int i, j, k;
-	for (i = 0; i < 2; i++) {
-		for (j = 0; j < 4; j++)
+	for (i = 0; i < 1; i++) {
+		for (j = 0; j < 1; j++)
 		{
 			play_verse();
 		}
 		play_bridge();
-		for (k = 0; k < 4; k++)
+		for (k = 0; k < 1; k++)
 		{
 			play_chorus();
 		}		
@@ -345,4 +348,171 @@ int play_preset(int *array) {
 		play_tone(array[i], array[i+1]);
 	}
 }
+
+int * get_scale(int scale) {
+	if (scale == 0) {
+		return scale_C_Major;
+	} else if (scale == 1) {
+		return scale_D_Major;
+	} else if (scale == 2) {
+		return scale_E_Major;
+	} else if (scale == 3) {
+		return scale_F_Major;
+	} else if (scale == 4) {
+		return scale_G_Major;
+	} else if (scale == 5) {
+		return scale_A_Major;
+	} else if (scale == 6) {
+		return scale_B_Major;
+	} else if (scale == 7) {
+		return scale_C_Minor;
+	} else if (scale == 8) {
+		return scale_D_Minor;
+	} else if (scale == 9) {
+		return scale_E_Minor;
+	} else if (scale == 10) {
+		return scale_F_Minor;
+	} else if (scale == 11) {
+		return scale_G_Minor;
+	} else if (scale == 12) {
+		return scale_A_Minor;
+	} else if (scale == 13) {
+		return scale_B_Minor;
+	} else if (scale == 14) {
+		return scale_C_Arabix;
+	} else return scale_C_Major;
+}
+
+
+int short_noize() {
+	int noize[8];
+	noize[0] = xorshift() & 0x7f;
+	noize[0] = 8;
+	noize[2] = xorshift() & 0x7f;
+	noize[0] = 8;
+	noize[4] = xorshift() & 0x7f;
+	noize[0] = 8;
+	noize[6] = xorshift() & 0x7f;
+	noize[0] = 8;
+	play_tones(0, noize, 8, 0, 1);
+}
+
+int get_random_tone(int scale) {
+	int tone = 0;
+	int *tones = get_scale(scale);
+	int tone_index = TONES_IN_SCALE;
+	while (!(tone_index < TONES_IN_SCALE)) {
+		tone_index = xorshift() & 0x3f;
+		tone = tones[tone_index];
+	}
+	return tone;
+}
+
+int * generate_tones(int scale, int tone_count, int speed) {
+	
+	// Find 12 random tones in scale
+	int tones[tone_count];
+	int tone_length;
+	int *tones_ptr = tones;
+	int index;
+	for (index = 0; index < tone_count; index++) {
+		tone_length = ((xorshift() & 0x2) + speed + 1);
+		tones[index] = get_random_tone(scale);
+		tones[index+1] = tone_length;
+		index++;
+	}
+	return tones_ptr;
+}
+
+int melody_happy() {
+
+	// Choose scale
+	int scale;	
+	scale = xorshift() & 0x7;
+	int tone_count = (xorshift() & 0x3f) << 2;
+	
+	int play_count;
+	int *tones = generate_tones(scale, tone_count, 2);
+	for (play_count = 0; play_count < 1; play_count++) {
+		play_tones(scale, tones, tone_count, 8, 8);
+	}
+}
+
+
+int melody_sad() {
+
+	// Choose scale
+	int scale;	
+	scale = (xorshift() & 0x7) + 0x7;
+	int tone_count = (xorshift() & 0x3f) << 2;
+	
+	int play_count;
+	int *tones = generate_tones(scale, tone_count, 1);
+	for (play_count = 0; play_count < 1; play_count++) {
+		play_tones(scale, tones, tone_count, 3, 4);
+	}
+}
+
+int melody_arabix() {
+	int scale = 14;
+	int tone_count = (xorshift() & 0x3f) << 2;
+	int play_count;
+	int *tones = generate_tones(scale, tone_count, 2);
+	for (play_count = 0; play_count < 2; play_count++) {
+		play_tones(scale, tones, tone_count, 2, 8);
+	}
+}
+
+int melody_slow() {
+	int scale = (xorshift() & 0x7) + 0x7;
+	int tone_count = (xorshift() & 0x3f) << 1;
+	int play_count;
+	int *tones = generate_tones(scale, tone_count, 1);
+	for (play_count = 0; play_count < 2; play_count++) {
+		play_tones(scale, tones, tone_count, 0, 8);
+	}
+}
+
+int melody_small() {
+	int scale = (xorshift() & 0x7) + 0x7;
+	int tone_count = 0x7;
+	int play_count;
+	int *tones;
+	for (play_count = 0; play_count < 10; play_count++) {
+		tones = generate_tones(scale, tone_count, 0);
+		play_tones(scale, tones, tone_count, 1, 4);
+	}
+}
+
+int play_song() {
+	melody_happy();
+	melody_sad();
+	melody_arabix();
+	melody_happy();
+	melody_sad();
+}
+
+int play_tones(int scale, int *tones, int tone_count, int drills, int drill_length) {	
+	// Play tones 4 times
+	int index;
+	int play_count;
+	int drill_count;
+	play_tone(0, 1);
+	int *scale_tones = get_scale(scale);
+	for (play_count = 0; play_count < 1; play_count++) {
+		for (index = 0; index < tone_count; index++) {
+			play_tone(tones[index], tones[index+1]);
+			int drill_start = (xorshift() & 0xf) + 0x5;
+			for (drill_count = 0; drill_count < drills; drill_count++) {
+				play_tone(scale_tones[drill_start + (drill_count *2)], drill_length);
+			}
+			index++;
+		}
+	}
+}
+
+
+
+
+
 
