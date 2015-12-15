@@ -41,7 +41,7 @@ int getbtns() {
 
 int getsw() {
     
-    unsigned int sw = PORTD;
+    sw = PORTD;
     sw >>= 8;
     sw = sw & 0xf;
     

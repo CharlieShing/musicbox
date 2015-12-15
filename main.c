@@ -20,46 +20,11 @@ int main(void){
     setup();	
 	tone_length = 5;
     while(1){
-        update_status(); 
-		if (0) {
-			if (btns & 1) {
-				play_song();
-			}		
-		} else if (0) {
-			if (btns & 1)
-				if (btn1 < 61) btn1 = btn1 - 1;
-			else if (btns & 0x2)
-				if (btn2 < 61) btn2 = btn2 - 1;
-			else if (btns & 0x4)
-				if (btn3 < 61) btn3 = btn3 - 1;
-			else if (btns & 0x8)
-				if (btn4 < 61) btn4 = btn4 - 1;
-			else if (btns & 0x10)
-				if (btn5 < 61) btn5 = btn5 - 1;
-			else if (btns & 0x20)
-				if (btn6 < 61) btn6 = btn6 - 1;
-			else if (btns & 0x40)
-				if (btn7 < 61) btn7 = btn7 - 1;
-		} else if (0) {
-			if (btns & 1)
-				if (btn1 > 0) btn1 = btn1 + 1;
-			if (btns & 0x2)
-				if (btn2 > 0) btn2 = btn2 + 1;
-			if (btns & 0x4)
-				if (btn3 > 0) btn3 = btn3 + 1;
-			if (btns & 0x8)
-				if (btn4 > 0) btn4 = btn4 + 1;
-			if (btns & 0x10)
-				if (btn5 > 0) btn5 = btn5 + 1;
-			if (btns & 0x20)
-				if (btn6 > 0) btn6 = btn6 + 1;
-			if (btns & 0x40)
-				if (btn7 > 0) btn7 = btn7 + 1;
-		} if (1) {
+    	update_status(); 
+		if (sw == 0) {
 	        if (btns & 0x1) {
-				play_noize();
-				//tone = tone_frq[btn1];
-				//play_tone(tone, tone_length);
+				tone = tone_frq[btn1];
+				play_tone(tone, tone_length);
 	        } if (btns & 0x2) {
 				tone = tone_frq[btn2];
 				play_tone(tone, tone_length);
@@ -78,12 +43,55 @@ int main(void){
 	        } if (btns & 0x40) {
 				tone = tone_frq[btn7];
 				play_tone(tone, tone_length);      
-			}else {
-	            // Clear tones etc.
-				PORTECLR = 0xff;
+			}
+		} else if (sw == 0x1) {
+			modify_pitch(1);
+		} else if (sw == 0x3) {
+			modify_pitch(-1);
+		} else if (sw == 0xf) {
+			if (btns & 0x1) {
+				play_noize();
+			} else if (btns & 0x2) {
+				//play_melody();
 			}
 		}
+        // Clear tones etc.
+		PORTECLR = 0xff;
     }
+	return 0;
+}
+
+int modify_pitch(int change_pitch) {
+	if (btns & 0x1) {
+		btn1 += change_pitch;
+		tone = tone_frq[btn1];
+		play_tone(tone, tone_length);		
+	} if (btns & 0x2) {
+		btn2 += change_pitch;		
+		tone = tone_frq[btn2];
+		play_tone(tone, tone_length);		
+	} if (btns & 0x4) {
+		btn3 += change_pitch;	
+		tone = tone_frq[btn3];
+		play_tone(tone, tone_length);			
+	} if (btns & 0x8) {
+		btn4 += change_pitch;	
+		tone = tone_frq[btn4];
+		play_tone(tone, tone_length);			
+	} if (btns & 0x10) {
+		btn5 += change_pitch;
+		tone = tone_frq[btn5];
+		play_tone(tone, tone_length);				
+	} if (btns & 0x20) {
+		btn6 += change_pitch;
+		tone = tone_frq[btn6];
+		play_tone(tone, tone_length);				
+	} if (btns & 0x40) {
+		btn7 += change_pitch;
+		tone = tone_frq[btn7];
+		play_tone(tone, tone_length);		
+	}	
+	return 0;
 }
 
 

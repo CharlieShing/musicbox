@@ -100,7 +100,22 @@ z=348572,
 w=62346,
 v=61126;
 
+/*Method for generating random number. Found on 
+http://mathoverflow.net/questions/29494/pseudo-random-number-generation-algorithms*/ 
+/* replace defaults with five random seed values in calling program */ 
+unsigned long xorshift(void) {
+	int t; 
+	t=(x^(x>>7)); 
+	x=y; 
+	y=z; 
+	z=w; 
+	w=v; 
+	v=(v^(v<<6))^(t^(t<<13)); 
+	return (y+y+1)*v;
+} 
+
 int play_tone(int freq, int length) {
+	xorshift();
 	T2CONSET = 0x8000;
 	int duration_counter = 0;
 	int wave_counter = 0;
@@ -130,20 +145,6 @@ int play_tone(int freq, int length) {
 	PORTDCLR = 0x1;
 	T2CON |= ~0x8000;
 }
-
-/*Method for generating random number. Found on 
-http://mathoverflow.net/questions/29494/pseudo-random-number-generation-algorithms*/ 
-/* replace defaults with five random seed values in calling program */ 
-unsigned long xorshift(void) {
-	int t; 
-	t=(x^(x>>7)); 
-	x=y; 
-	y=z; 
-	z=w; 
-	w=v; 
-	v=(v^(v<<6))^(t^(t<<13)); 
-	return (y+y+1)*v;
-} 
 
 int get_verse() {
 	verse_length_1 = (xorshift() & 0xf);
@@ -334,6 +335,14 @@ int play_noize() {
 		{
 			play_chorus();
 		}		
+	}
+}
+
+int play_preset(int *array) {
+	int size = sizeof(array)/sizeof(array[0]);
+	int i;
+	for (i = 0; i < size; (i+2)) {
+		play_tone(array[i], array[i+1]);
 	}
 }
 
