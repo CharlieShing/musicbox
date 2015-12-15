@@ -3,7 +3,7 @@
 #include "setup.h"
 #include "main_functions.h"
 #include "status.h"
-#include "example_songs"
+#include "example_songs.h"
 
 // Some tone frequencies
 int C2 = 0x3A;

@@ -3,6 +3,7 @@
 #include "setup.h"
 #include "main_functions.h"
 #include "status.h"
+#include "example_songs.h"
 
 int tone_length;
 int tone;
@@ -61,8 +62,10 @@ int main(void){
 				//tone = tone_frq[btn1];
 				//play_tone(tone, tone_length);
 	        } if (btns & 0x2) {
-				tone = tone_frq[btn2];
-				play_tone(tone, tone_length);
+				//play_example(example_twinkle, twinkle_length);
+				play_example(example_imperial, imperial_length);
+				//tone = tone_frq[btn2];
+				//play_tone(tone, tone_length);
 	        } if (btns & 0x4) {
 				tone = tone_frq[btn3];
 				play_tone(tone, tone_length);

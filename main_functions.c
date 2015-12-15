@@ -3,6 +3,7 @@
 #include "setup.h"
 #include "main_functions.h"
 #include "status.h"
+#include "example_songs.h"
 
 int verse_length_1;
 int verse_length_2;
@@ -129,6 +130,13 @@ int play_tone(int freq, int length) {
 	// Stop timer and tone
 	PORTDCLR = 0x1;
 	T2CON |= ~0x8000;
+}
+
+void play_example(tone_info example[], int length) {
+	int i;
+	for(i = 0; i < length; i++) {
+		play_tone(example[i].tone[0], example[i].tone[1]);
+	}
 }
 
 /*Method for generating random number. Found on 
