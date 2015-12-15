@@ -8,17 +8,17 @@ int tone_length;
 int tone;
 
 // Index for button tones will be stored in these variables.
-int btn1 = 8;
-int btn2 = 10;
-int btn3 = 12;
-int btn4 = 14;
+int btn1 = 54;
+int btn2 = 49;
+int btn3 = 48;
+int btn4 = 47;
 int btn5 = 42;
 int btn6 = 44;
 int btn7 = 46;
 
 int main(void){
     setup();	
-	tone_length = 10;
+	tone_length = 5;
     while(1){
         update_status(); 
 		if (0) {
@@ -57,21 +57,9 @@ int main(void){
 				if (btn7 > 0) btn7 = btn7 + 1;
 		} if (1) {
 	        if (btns & 0x1) {
-				if (sw & 0x1) {
-					play_tone(tone, tone_length);
-				} else if (sw & 0x2) {
-					play_tone(C6, tone_length);
-				} else if (sw & 0x4) {
-					play_tone(D6, tone_length);
-				} else if (sw & 0x8) {
-					play_tone(E6, tone_length);
-				} else if (sw & 0x10) {
-					play_tone(F6, tone_length);
-				} else if (sw & 0x20) {
-					play_tone(G6, tone_length);
-				} else if (sw & 0x40) {
-					play_tone(A6, tone_length);
-				}
+				play_noize();
+				//tone = tone_frq[btn1];
+				//play_tone(tone, tone_length);
 	        } if (btns & 0x2) {
 				tone = tone_frq[btn2];
 				play_tone(tone, tone_length);
