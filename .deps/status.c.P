@@ -1,6 +1,4 @@
-status.c.o: status.c \
- /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/pic32mx.h \
- musicbox.h status.h
-status.c :
- /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/pic32mx.h :
- musicbox.h status.h :
+status.c.o: status.c /opt/mcb32tools/include/pic32mx.h musicbox.h \
+ status.h
+status.c /opt/mcb32tools/include/pic32mx.h musicbox.h :
+ status.h :

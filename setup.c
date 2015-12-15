@@ -3,6 +3,7 @@
 #include "setup.h"
 #include "main_functions.h"
 #include "status.h"
+#include "example_songs"
 
 // Some tone frequencies
 int C2 = 0x3A;
@@ -131,6 +132,8 @@ int setup(void) {
 	tone_frq[59] = B6;
 	tone_frq[60] = C7;
 	tone_frq[61] = 0x0;
+
+	setup_songs();
 
 	// Initialize internal buttons RF1, RD5-7. Pin 4, 34, 36, 37:
     //BTN1
