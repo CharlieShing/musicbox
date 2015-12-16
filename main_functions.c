@@ -43,7 +43,7 @@ int play_tone(int freq, int length) {
 	else led_down = 0x80;
 	
 	// Turn on one of the LEDs
-	PORTESET = led_up + led_down + (xorshift() & 0xa5);
+	PORTESET = led_up + led_down + ((xorshift() & 0xa4) * (xorshift() & 0x1));
 	// Counters increment each microsecond.
 	while (duration_counter < duration) {
 		if (IFS(0) & 0x100 ) {
@@ -161,7 +161,7 @@ int melody_sad() {
 	int play_count;
 	int *tones = generate_tones(scale, tone_count, 1);
 	for (play_count = 0; play_count < 1; play_count++) {
-		play_tones(scale, tones, tone_count, 8, 8);
+		play_tones(scale, tones, tone_count, 3, 6);
 	}
 }
 
@@ -180,8 +180,8 @@ int melody_slow() {
 	int tone_count = (xorshift() & 0x3f) << 1;
 	int play_count;
 	int *tones = generate_tones(scale, tone_count, 1);
-	for (play_count = 0; play_count < 2; play_count++) {
-		play_tones(scale, tones, tone_count, 0, 8);
+	for (play_count = 0; play_count < 1; play_count++) {
+		play_tones(scale, tones, tone_count, 10, 12);
 	}
 }
 
@@ -197,10 +197,21 @@ int melody_small() {
 }
 
 int play_song() {
-	melody_happy();
-	melody_sad();
-	melody_arabix();
-	melody_happy();
+	int segment_case;
+	int segment_count;
+	for (segment_count = 0; segment_count < 4; segment_count++) {
+		segment_case = xorshift() & 0x3;
+		if (segment_case == 0)
+			melody_happy();
+		else if (segment_case == 1)
+			melody_sad();
+		else if (segment_case == 2)
+			melody_arabix();
+		else if (segment_case == 3)
+			melody_slow();
+		else
+			melody_happy();
+	}
 }
 
 int play_tones(int scale, int *tones, int tone_count, int drills, int drill_length) {	
@@ -215,7 +226,7 @@ int play_tones(int scale, int *tones, int tone_count, int drills, int drill_leng
 			play_tone(tones[index], tones[index+1]);
 			int drill_start = (xorshift() & 0xf) + 0x5;
 			for (drill_count = 0; drill_count < drills; drill_count++) {
-				play_tone(scale_tones[drill_start + (drill_count *2)], drill_length);
+				play_tone(scale_tones[drill_start + (drill_count * 2)], drill_length);
 			}
 			index++;
 		}
