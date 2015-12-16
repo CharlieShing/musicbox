@@ -4,104 +4,16 @@
 #include "main_functions.h"
 #include "status.h"
 
-#define SCALES_AMOUNT 7
 #define TONES_IN_SCALE 36
-
-int verse_length_1;
-int verse_length_2;
-int verse_length_3;
-int verse_length_4;
-int verse_tone_1;
-int verse_tone_2;
-int verse_tone_3;
-int verse_tone_4;
-int verse_tone_5;
-int verse_tone_6;
-int verse_tone_7;
-int verse_tone_8;
-int verse_tone_9;
-int verse_tone_10;
-int verse_tone_11;
-int verse_tone_12;
-int verse_tone_13;
-int verse_tone_14;
-int verse_tone_15;
-int verse_tone_16;
-int verse_tone_17;
-int verse_tone_18;
-int verse_tone_19;
-int verse_tone_20;
-int verse_tone_21;
-int verse_tone_22;
-int verse_tone_23;
-int verse_tone_24;
-
-int bridge_length_1;
-int bridge_length_2;
-int bridge_length_3;
-int bridge_length_4;
-int bridge_tone_1;
-int bridge_tone_2;
-int bridge_tone_3;
-int bridge_tone_4;
-int bridge_tone_5;
-int bridge_tone_6;
-int bridge_tone_7;
-int bridge_tone_8;
-int bridge_tone_9;
-int bridge_tone_10;
-int bridge_tone_11;
-int bridge_tone_12;
-int bridge_tone_13;
-int bridge_tone_14;
-int bridge_tone_15;
-int bridge_tone_16;
-int bridge_tone_17;
-int bridge_tone_18;
-int bridge_tone_19;
-int bridge_tone_20;
-int bridge_tone_21;
-int bridge_tone_22;
-int bridge_tone_23;
-int bridge_tone_24;
-
-int chorus_length_1;
-int chorus_length_2;
-int chorus_length_3;
-int chorus_length_4;
-int chorus_tone_1;
-int chorus_tone_2;
-int chorus_tone_3;
-int chorus_tone_4;
-int chorus_tone_5;
-int chorus_tone_6;
-int chorus_tone_7;
-int chorus_tone_8;	
-int chorus_tone_9;
-int chorus_tone_10;
-int chorus_tone_11;
-int chorus_tone_12;
-int chorus_tone_13;
-int chorus_tone_14;
-int chorus_tone_15;
-int chorus_tone_16;
-int chorus_tone_17;
-int chorus_tone_18;
-int chorus_tone_19;
-int chorus_tone_20;
-int chorus_tone_21;
-int chorus_tone_22;
-int chorus_tone_23;
-int chorus_tone_24;
 
 int led_up  = 0x01;
 int led_down  = 0x80;
 static int
-x=739677345,
-y=908315784,
-z=275428064,
-w=279215799,
-v=134787432;
+x=666,
+y=1024,
+z=1337,
+w=999,
+v=4;
 
 /*Method for generating random number. Found on 
 http://mathoverflow.net/questions/29494/pseudo-random-number-generation-algorithms*/ 
@@ -147,206 +59,6 @@ int play_tone(int freq, int length) {
 	// Stop timer and tone
 	PORTDCLR = 0x1;
 	T2CON |= ~0x8000;
-}
-
-int get_verse() {
-	verse_length_1 = (xorshift() & 0xf);
-	verse_length_2 = (xorshift() & 0xf);
-	verse_length_3 = (xorshift() & 0xf);
-	verse_length_4 = (xorshift() & 0xf);
-	verse_tone_1 = xorshift() & 0x7f;
-	verse_tone_2 = verse_tone_1 + 4;
-	verse_tone_3 = xorshift() & 0x7f;
-	verse_tone_4 = xorshift() & 0x7f;
-	verse_tone_5 = verse_tone_3 + 4;
-	verse_tone_6 = xorshift() & 0x7f;
-	verse_tone_7 = verse_tone_6 + 4;
-	verse_tone_8 = xorshift() & 0x7f;	
-	verse_tone_9 = xorshift() & 0x7f;
-	verse_tone_10 = xorshift() & 0x7f;
-	verse_tone_11 = xorshift() & 0x7f;
-	verse_tone_12 = xorshift() & 0x7f;
-	verse_tone_13 = xorshift() & 0x7f;
-	verse_tone_14 = xorshift() & 0x7f;
-	verse_tone_15 = xorshift() & 0x7f;
-	verse_tone_16 = xorshift() & 0x7f;	
-	verse_tone_17 = (xorshift() & 0xf) << 1;
-	verse_tone_18 = (xorshift() & 0xf) << 1;
-	verse_tone_19 = (xorshift() & 0xf) << 1;
-	verse_tone_20 = (xorshift() & 0xf) << 1;
-	verse_tone_21 = (xorshift() & 0xf) << 1;
-	verse_tone_22 = (xorshift() & 0xf) << 1;
-	verse_tone_23 = (xorshift() & 0xf) << 1;
-	verse_tone_24 = (xorshift() & 0xf) << 1;	
-}
-
-int get_bridge() {
-	bridge_length_1 = (xorshift() & 0xf);
-	bridge_length_2 = (xorshift() & 0xf);
-	bridge_length_3 = (xorshift() & 0xf);
-	bridge_length_4 = (xorshift() & 0xf);
-	bridge_tone_1 = xorshift() & 0x7f;
-	bridge_tone_2 = bridge_tone_1 + 4;
-	bridge_tone_3 = xorshift() & 0x7f;
-	bridge_tone_4 = xorshift() & 0x7f;
-	bridge_tone_5 = bridge_tone_3 + 4;
-	bridge_tone_6 = xorshift() & 0x7f;
-	bridge_tone_7 = bridge_tone_6 + 4;
-	bridge_tone_8 = xorshift() & 0x7f;	
-	bridge_tone_9 = xorshift() & 0x7f;
-	bridge_tone_10 = xorshift() & 0x7f;
-	bridge_tone_11 = xorshift() & 0x7f;
-	bridge_tone_12 = xorshift() & 0x7f;
-	bridge_tone_13 = xorshift() & 0x7f;
-	bridge_tone_14 = xorshift() & 0x7f;
-	bridge_tone_15 = xorshift() & 0x7f;
-	bridge_tone_16 = xorshift() & 0x7f;	
-	bridge_tone_17 = (xorshift() & 0xf) << 1;
-	bridge_tone_18 = (xorshift() & 0xf) << 1;
-	bridge_tone_19 = (xorshift() & 0xf) << 1;
-	bridge_tone_20 = (xorshift() & 0xf) << 1;
-	bridge_tone_21 = (xorshift() & 0xf) << 1;
-	bridge_tone_22 = (xorshift() & 0xf) << 1;
-	bridge_tone_23 = (xorshift() & 0xf) << 1;
-	bridge_tone_24 = (xorshift() & 0xf) << 1;
-}
-
-int get_chorus() {
-	chorus_length_1 = (xorshift() & 0xf);
-	chorus_length_2 = (xorshift() & 0xf);
-	chorus_length_3 = (xorshift() & 0xf);
-	chorus_length_4 = (xorshift() & 0xf);
-	chorus_tone_1 = xorshift() & 0x7f;
-	chorus_tone_2 = chorus_tone_1 + 4;
-	chorus_tone_3 = xorshift() & 0x7f;
-	chorus_tone_4 = xorshift() & 0x7f;
-	chorus_tone_5 = chorus_tone_3 + 4;
-	chorus_tone_6 = xorshift() & 0x7f;
-	chorus_tone_7 = chorus_tone_6 + 4;
-	chorus_tone_8 = xorshift() & 0x7f;	
-	chorus_tone_9 = xorshift() & 0x7f;
-	chorus_tone_10 = xorshift() & 0x7f;
-	chorus_tone_11 = xorshift() & 0x7f;
-	chorus_tone_12 = xorshift() & 0x7f;
-	chorus_tone_13 = xorshift() & 0x7f;
-	chorus_tone_14 = xorshift() & 0x7f;
-	chorus_tone_15 = xorshift() & 0x7f;
-	chorus_tone_16 = xorshift() & 0x7f;	
-	chorus_tone_17 = (xorshift() & 0xf) << 1;
-	chorus_tone_18 = (xorshift() & 0xf) << 1;
-	chorus_tone_19 = (xorshift() & 0xf) << 1;
-	chorus_tone_20 = (xorshift() & 0xf) << 1;
-	chorus_tone_21 = (xorshift() & 0xf) << 1;
-	chorus_tone_22 = (xorshift() & 0xf) << 1;
-	chorus_tone_23 = (xorshift() & 0xf) << 1;
-	chorus_tone_24 = (xorshift() & 0xf) << 1;
-}
-
-int play_verse() {
-	play_tone(verse_tone_1, verse_length_1);
-	play_tone(verse_tone_2, verse_length_2);
-	play_tone(verse_tone_3, verse_length_3);
-	play_tone(verse_tone_4, verse_length_4);
-	play_tone(verse_tone_5, verse_length_1);
-	play_tone(verse_tone_6, verse_length_3);
-	play_tone(verse_tone_7, verse_length_2);
-	play_tone(verse_tone_8, verse_length_4);
-	play_tone(verse_tone_9, verse_length_3);
-	play_tone(verse_tone_10, verse_length_2);
-	play_tone(verse_tone_11, verse_length_1);
-	play_tone(verse_tone_12, verse_length_4);
-	play_tone(verse_tone_13, verse_length_3);
-	play_tone(verse_tone_14, verse_length_2);
-	play_tone(verse_tone_15, verse_length_1);
-	play_tone(verse_tone_16, verse_length_3);
-	play_tone(verse_tone_17, verse_length_2);
-	play_tone(verse_tone_18, verse_length_4);
-	play_tone(verse_tone_19, verse_length_1);
-	play_tone(verse_tone_20, verse_length_2);
-	play_tone(verse_tone_21, verse_length_3);
-	play_tone(verse_tone_22, verse_length_1);
-	play_tone(verse_tone_23, verse_length_2);
-	play_tone(verse_tone_24, verse_length_3);
-}
-
-int play_bridge() {
-	play_tone(bridge_tone_1, bridge_length_1);
-	play_tone(bridge_tone_2, bridge_length_2);
-	play_tone(bridge_tone_3, bridge_length_3);
-	play_tone(bridge_tone_4, bridge_length_4);
-	play_tone(bridge_tone_5, bridge_length_1);
-	play_tone(bridge_tone_6, bridge_length_3);
-	play_tone(bridge_tone_7, bridge_length_2);
-	play_tone(bridge_tone_8, bridge_length_4);
-	play_tone(bridge_tone_9, bridge_length_3);
-	play_tone(bridge_tone_10, bridge_length_2);
-	play_tone(bridge_tone_11, bridge_length_1);
-	play_tone(bridge_tone_12, bridge_length_4);
-	play_tone(bridge_tone_13, bridge_length_3);
-	play_tone(bridge_tone_14, bridge_length_2);
-	play_tone(bridge_tone_15, bridge_length_1);
-	play_tone(bridge_tone_16, bridge_length_3);
-	play_tone(bridge_tone_17, bridge_length_2);
-	play_tone(bridge_tone_18, bridge_length_4);
-	play_tone(bridge_tone_19, bridge_length_1);
-	play_tone(bridge_tone_20, bridge_length_2);
-	play_tone(bridge_tone_21, bridge_length_3);
-	play_tone(bridge_tone_22, bridge_length_1);
-	play_tone(bridge_tone_23, bridge_length_2);
-	play_tone(bridge_tone_24, bridge_length_3);
-}
-
-int play_chorus() {
-	play_tone(chorus_tone_1, chorus_length_1);
-	play_tone(chorus_tone_2, chorus_length_2);
-	play_tone(chorus_tone_3, chorus_length_3);
-	play_tone(chorus_tone_4, chorus_length_4);
-	play_tone(chorus_tone_5, chorus_length_1);
-	play_tone(chorus_tone_6, chorus_length_3);
-	play_tone(chorus_tone_7, chorus_length_2);
-	play_tone(chorus_tone_8, chorus_length_4);
-	play_tone(chorus_tone_9, chorus_length_3);
-	play_tone(chorus_tone_10, chorus_length_2);
-	play_tone(chorus_tone_11, chorus_length_1);
-	play_tone(chorus_tone_12, chorus_length_4);
-	play_tone(chorus_tone_13, chorus_length_3);
-	play_tone(chorus_tone_14, chorus_length_2);
-	play_tone(chorus_tone_15, chorus_length_1);
-	play_tone(chorus_tone_16, chorus_length_3);
-	play_tone(chorus_tone_17, chorus_length_2);
-	play_tone(chorus_tone_18, chorus_length_4);
-	play_tone(chorus_tone_19, chorus_length_1);
-	play_tone(chorus_tone_20, chorus_length_2);
-	play_tone(chorus_tone_21, chorus_length_3);
-	play_tone(chorus_tone_22, chorus_length_1);
-	play_tone(chorus_tone_23, chorus_length_2);
-	play_tone(chorus_tone_24, chorus_length_3);
-}
-
-int play_noize() {
-	get_verse();
-	get_bridge();
-	get_chorus();
-	int i, j, k;
-	for (i = 0; i < 1; i++) {
-		for (j = 0; j < 1; j++)
-		{
-			play_verse();
-		}
-		play_bridge();
-		for (k = 0; k < 1; k++)
-		{
-			play_chorus();
-		}		
-	}
-}
-
-int play_preset(int *array) {
-	int size = sizeof(array)/sizeof(array[0]);
-	int i;
-	for (i = 0; i < size; (i+2)) {
-		play_tone(array[i], array[i+1]);
-	}
 }
 
 int * get_scale(int scale) {
@@ -449,7 +161,7 @@ int melody_sad() {
 	int play_count;
 	int *tones = generate_tones(scale, tone_count, 1);
 	for (play_count = 0; play_count < 1; play_count++) {
-		play_tones(scale, tones, tone_count, 3, 4);
+		play_tones(scale, tones, tone_count, 8, 8);
 	}
 }
 
@@ -489,7 +201,6 @@ int play_song() {
 	melody_sad();
 	melody_arabix();
 	melody_happy();
-	melody_sad();
 }
 
 int play_tones(int scale, int *tones, int tone_count, int drills, int drill_length) {	

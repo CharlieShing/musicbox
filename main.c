@@ -94,16 +94,20 @@ int main(void){
 	        } if (btns & 0x8) {
 				tone = tone_frq[btn4_set1];
 				play_tone(tone, tone_length);
-	        } else if (btns & 0x10) {
-				short_noize();
-			} else if (btns & 0x20) {
-				short_noize();
-			} else if (btns & 0x40) {
-				short_noize();
+	        } if (btns & 0x10) {
+				tone = tone_frq[btn5_set1];
+				play_tone(tone, tone_length);
+	        } if (btns & 0x20) {
+				tone = tone_frq[btn6_set1];
+				play_tone(tone, tone_length);
+	        } if (btns & 0x40) {
+				tone = tone_frq[btn7_set1];
+				play_tone(tone, tone_length);      
 			}
 		} else if (sw == 0xd) {
 			if (btns & 0x1) {
-				play_noize();
+				tone = tone_frq[btn1_set1];
+				play_tone(tone, tone_length);
 			} else if (btns & 0x2) {
 				melody_happy();
 			} else if (btns & 0x4) {
