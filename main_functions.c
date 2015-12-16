@@ -3,6 +3,7 @@
 #include "setup.h"
 #include "main_functions.h"
 #include "status.h"
+#include "example_songs.h"
 
 #define TONES_IN_SCALE 36
 
@@ -119,6 +120,14 @@ int get_random_tone(int scale) {
 	}
 	return tone;
 }
+
+void play_example(tone_info example[], int length) {
+	int i;
+	for(i = 0; i < length; i++) {
+		play_tone(example[i].tone[0], example[i].tone[1]);
+	}
+}
+
 
 int * generate_tones(int scale, int tone_count, int speed) {
 	

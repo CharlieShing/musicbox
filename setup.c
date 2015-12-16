@@ -3,6 +3,7 @@
 #include "setup.h"
 #include "main_functions.h"
 #include "status.h"
+#include "example_songs.h"
 
 // Some tone frequencies
 int C2 = 0x3A;
@@ -689,6 +690,8 @@ int setup(void) {
 	scale_C_Arabix[33] = GS6;
 	scale_C_Arabix[34] = B6;
 	scale_C_Arabix[35] = 0;	
+
+	setup_songs();
 
 	// Initialize internal buttons RF1, RD5-7. Pin 4, 34, 36, 37:
     //BTN1

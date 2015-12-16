@@ -3,6 +3,7 @@
 #include "setup.h"
 #include "main_functions.h"
 #include "status.h"
+#include "example_songs.h"
 
 int tone_length;
 int tone;
@@ -172,11 +173,9 @@ int main(void){
 			if (btns & 0x1) {
 				melody_arabix();
 			} if (btns & 0x2) {
-				tone = tone_frq[btn2_set1];
-				play_tone(tone, tone_length);
+				play_example(example_twinkle, twinkle_length);
 	        } if (btns & 0x4) {
-				tone = tone_frq[btn3_set1];
-				play_tone(tone, tone_length);
+				play_example(example_imperial, imperial_length);
 	        } if (btns & 0x8) {
 				tone = tone_frq[btn4_set1];
 				play_tone(tone, tone_length);
