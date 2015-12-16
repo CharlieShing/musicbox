@@ -1,6 +1,6 @@
-main.c.o: main.c \
+example_songs.c.o: example_songs.c \
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/pic32mx.h \
- musicbox.h setup.h main_functions.h status.h example_songs.h
-main.c :
+ musicbox.h setup.h example_songs.h
+example_songs.c :
  /Applications/mcb32tools.app/Contents/Resources/Toolchain/include/pic32mx.h :
- musicbox.h setup.h main_functions.h status.h example_songs.h :
+ musicbox.h setup.h example_songs.h :

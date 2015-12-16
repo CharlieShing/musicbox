@@ -9,21 +9,21 @@ int tone_length;
 int tone;
 
 // Index for button tones will be stored in these variables.
-int btn1_set1 = 54;
-int btn2_set1 = 49;
-int btn3_set1 = 48;
-int btn4_set1 = 47;
-int btn5_set1 = 42;
-int btn6_set1 = 44;
+int btn1_set1 = 10;
+int btn2_set1 = 14;
+int btn3_set1 = 17;
+int btn4_set1 = 22;
+int btn5_set1 = 34;
+int btn6_set1 = 38;
 int btn7_set1 = 46;
 
-int btn1_set2 = 54;
-int btn2_set2 = 49;
-int btn3_set2 = 48;
-int btn4_set2 = 47;
-int btn5_set2 = 42;
-int btn6_set2 = 44;
-int btn7_set2 = 46;
+int btn1_set2 = 13;
+int btn2_set2 = 17;
+int btn3_set2 = 20;
+int btn4_set2 = 25;
+int btn5_set2 = 37;
+int btn6_set2 = 38;
+int btn7_set2 = 44;
 
 int main(void){
     setup();	
